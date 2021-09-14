@@ -8,36 +8,71 @@ namespace TracerLib
     {
         private readonly List<ITracer> _threadTracers = new();
         private readonly ReaderWriterLockSlim _lock = new ();
-
-        private ITracer _currentThreadTracer;
+        
+        private ITracer GetThreadTracer(int id)
+        {
+            _lock.EnterReadLock();
+            try
+            {
+                return _threadTracers
+                    .Cast<ThreadTracer>()
+                    .FirstOrDefault(threadTracer => threadTracer.Id == id);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
+        }
+        
+        private void AddThreadTracer(ITracer threadTracer)
+        {
+            _lock.EnterWriteLock();
+            try
+            {
+                _threadTracers.Add(threadTracer);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+        }
         
         public void StartTrace()
         {
-            /*
-             * TODO: add lock
-             */
-            if (_currentThreadTracer == null)
+            int id = Thread.CurrentThread.ManagedThreadId;
+
+            var currentThreadTracer = GetThreadTracer(id);
+
+            if (currentThreadTracer == null)
             {
-                int id = Thread.CurrentThread.ManagedThreadId;
-                _currentThreadTracer = new ThreadTracer(id);
-                _threadTracers.Add(_currentThreadTracer);
+                currentThreadTracer = new ThreadTracer(id);
+                AddThreadTracer(currentThreadTracer);
             }
-            _currentThreadTracer.StartTrace();
+            
+            currentThreadTracer.StartTrace();
         }
 
         public void StopTrace()
         {
-            _currentThreadTracer.StopTrace();
+            int id = Thread.CurrentThread.ManagedThreadId;
+            GetThreadTracer(id)?.StopTrace();
         }
 
         public ITraceResult GetTraceResult()
         {
-            var results =
-                from threadTracer in _threadTracers
-                select (ThreadTraceResult)threadTracer.GetTraceResult();
+            _lock.EnterReadLock();
+            try
+            {
+                var results = _threadTracers
+                    .Select(threadTracer => (ThreadTraceResult)threadTracer.GetTraceResult())
+                    .ToList();
 
-
-            return new TraceResult(results.ToList());
+                return new TraceResult(results);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
         }
         
     }

@@ -37,11 +37,11 @@ namespace TracerLib
         
         public ITraceResult GetTraceResult()
         {
-            var results =
-                    from methodTracer in _methodTracers 
-                    select (MethodTraceResult)methodTracer.GetTraceResult();
+            var results = _methodTracers
+                .Select(threadTracer => (MethodTraceResult)threadTracer.GetTraceResult())
+                .ToList();
             
-            return new MethodTraceResult(_name, _className, _stopwatch.ElapsedMilliseconds, results.ToList());
+            return new MethodTraceResult(_name, _className, _stopwatch.ElapsedMilliseconds, results);
         }
         
     }

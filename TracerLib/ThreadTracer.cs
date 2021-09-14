@@ -6,7 +6,7 @@ namespace TracerLib
 {
     public class ThreadTracer:ITracer
     {
-        private readonly long _id;
+        public long Id { get; init; }
         private MethodTracer _currentMethodTracer;
 
         private readonly Stopwatch _stopwatch = new();
@@ -15,7 +15,7 @@ namespace TracerLib
 
         public ThreadTracer(long id)
         {
-            _id = id;
+            Id = id;
         }
         
         public void StartTrace()
@@ -52,25 +52,12 @@ namespace TracerLib
 
         public ITraceResult GetTraceResult()
         {
-            StopAllAliveTraces();
-            _stopwatch.Stop();
-            
-            var results =
-                    from methodTracer in _methodTracers
-                    select (MethodTraceResult)methodTracer.GetTraceResult();
+            var results = _methodTracers
+                .Select(threadTracer => (MethodTraceResult)threadTracer.GetTraceResult())
+                .ToList();
 
-            return new ThreadTraceResult(_id, _stopwatch.ElapsedMilliseconds, results.ToList());
+            return new ThreadTraceResult(Id, _stopwatch.ElapsedMilliseconds, results);
         }
-
-        private void StopAllAliveTraces()
-        {
-            while (_stack.Count != 0)
-            {
-                StopTrace();
-            }
-        }
-        
-
         
     }
     
