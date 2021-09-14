@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
 namespace TracerLib
@@ -7,6 +8,7 @@ namespace TracerLib
     {
         [XmlAttribute("name")]
         public string Name { get; init; }
+        [JsonPropertyName("class")]
         [XmlAttribute("class")]
         public string ClassName { get; init; }
         [XmlAttribute("time")]

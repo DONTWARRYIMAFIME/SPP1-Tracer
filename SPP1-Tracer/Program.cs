@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using TracerLib;
 using TracerLib.serialization;
@@ -15,10 +16,7 @@ namespace SPP1_Tracer
 
             foo.MyMethod();
 
-            TraceResult result = (TraceResult)tracer.GetTraceResult();
-            
-            Console.WriteLine(result);
-            
+            ITraceResult result = tracer.GetTraceResult();
             
             ISerializer jsonSerializer = new JsonTraceResultSerializer();
             ISerializer xmlSerializer = new XmlTraceResultSerializer();
@@ -28,6 +26,9 @@ namespace SPP1_Tracer
             
             Console.WriteLine(json);
             Console.WriteLine(xml);
+            
+            File.WriteAllText("out.json", json);
+            File.WriteAllText("out.xml", xml);
         }
         
     }
