@@ -16,8 +16,18 @@ namespace SPP1_Tracer
             foo.MyMethod();
 
             TraceResult result = (TraceResult)tracer.GetTraceResult();
-
+            
             Console.WriteLine(result);
+            
+            
+            ISerializer jsonSerializer = new JsonTraceResultSerializer();
+            ISerializer xmlSerializer = new XmlTraceResultSerializer();
+
+            string json = jsonSerializer.Serialize(result);
+            string xml = xmlSerializer.Serialize(result);
+            
+            Console.WriteLine(json);
+            Console.WriteLine(xml);
         }
         
     }

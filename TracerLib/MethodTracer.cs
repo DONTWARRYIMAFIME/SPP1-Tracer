@@ -15,7 +15,7 @@ namespace TracerLib
 
         public MethodTracer()
         {
-            MethodBase method = new StackFrame(2, false).GetMethod();
+            MethodBase method = new StackFrame(3, false).GetMethod();
             _name = method?.Name;
             _className = method?.DeclaringType?.FullName;
         }
