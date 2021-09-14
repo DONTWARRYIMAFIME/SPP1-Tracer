@@ -1,4 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
+using SPP1_Tracer.serialization;
+using SPP1_Tracer.tracer;
 
 namespace SPP1_Tracer
 {
@@ -6,7 +10,58 @@ namespace SPP1_Tracer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            ITracer tracer = new Tracer();
+            Foo foo = new Foo(tracer);
+
+            foo.MyMethod();
+
+            TraceResult result = (TraceResult)tracer.GetTraceResult();
+            
+            Console.WriteLine(result);
+        }
+        
+    }
+    
+    public class Foo
+    {
+        private readonly Bar _bar;
+        private readonly ITracer _tracer;
+
+        internal Foo(ITracer tracer)
+        {
+            _tracer = tracer;
+            _bar = new Bar(tracer);
+        }
+    
+        public void MyMethod()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(10);
+            _bar.InnerMethod();
+            Thread.Sleep(15);
+            _tracer.StopTrace();
         }
     }
+
+    public class Bar
+    {
+        private readonly ITracer _tracer;
+
+        internal Bar(ITracer tracer)
+        {
+            _tracer = tracer;
+        }
+    
+        public void InnerMethod()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(200);
+            _tracer.StopTrace();
+        }
+
+    }
+    
+    
+    
 }

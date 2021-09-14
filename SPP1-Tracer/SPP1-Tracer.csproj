@@ -6,4 +6,12 @@
         <RootNamespace>SPP1_Tracer</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TracerLib\TracerLib.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="out" />
+    </ItemGroup>
+
 </Project>

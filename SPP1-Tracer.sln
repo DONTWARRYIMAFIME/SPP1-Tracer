@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPP1-Tracer", "SPP1-Tracer\SPP1-Tracer.csproj", "{2CC19BC9-143E-4749-9DE4-F577523090D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TracerLib", "TracerLib\TracerLib.csproj", "{B92D8190-B7BE-4D43-9A28-56DE5B81E507}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{2CC19BC9-143E-4749-9DE4-F577523090D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC19BC9-143E-4749-9DE4-F577523090D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC19BC9-143E-4749-9DE4-F577523090D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B92D8190-B7BE-4D43-9A28-56DE5B81E507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B92D8190-B7BE-4D43-9A28-56DE5B81E507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B92D8190-B7BE-4D43-9A28-56DE5B81E507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B92D8190-B7BE-4D43-9A28-56DE5B81E507}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
