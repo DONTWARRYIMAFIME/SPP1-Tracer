@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
-using SPP1_Tracer.serialization;
-using SPP1_Tracer.tracer;
+using TracerLib;
+using TracerLib.serialization;
 
 namespace SPP1_Tracer
 {
@@ -17,7 +16,7 @@ namespace SPP1_Tracer
             foo.MyMethod();
 
             TraceResult result = (TraceResult)tracer.GetTraceResult();
-            
+
             Console.WriteLine(result);
         }
         

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace SPP1_Tracer.tracer
+namespace TracerLib
 {
     public class Tracer:ITracer
     {

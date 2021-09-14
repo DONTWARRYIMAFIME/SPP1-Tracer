@@ -1,4 +1,4 @@
-namespace SPP1_Tracer.tracer
+namespace TracerLib
 {
     public interface ITracer
     {

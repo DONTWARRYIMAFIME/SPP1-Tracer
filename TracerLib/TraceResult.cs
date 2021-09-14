@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SPP1_Tracer.tracer
+namespace TracerLib
 {
     public record TraceResult(List<ThreadTraceResult> Root):ITraceResult
     {

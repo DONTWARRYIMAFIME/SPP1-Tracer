@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 
-namespace SPP1_Tracer.tracer
+namespace TracerLib
 {
     public class ThreadTracer:ITracer
     {

@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace SPP1_Tracer.tracer
+namespace TracerLib
 {
     public class MethodTracer:ITracer
     {
