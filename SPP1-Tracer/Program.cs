@@ -10,11 +10,17 @@ namespace SPP1_Tracer
     {
         static void Main(string[] args)
         {
-
             ITracer tracer = new Tracer();
             Foo foo = new Foo(tracer);
 
-            foo.MyMethod();
+            Thread thread1 = new Thread(foo.MyMethod1);
+            thread1.Start();
+
+            Thread thread2 = new Thread(foo.MyMethod2);
+            thread2.Start();
+            
+            thread1.Join();
+            thread2.Join();
 
             ITraceResult result = tracer.GetTraceResult();
             
@@ -44,12 +50,32 @@ namespace SPP1_Tracer
             _bar = new Bar(tracer);
         }
     
-        public void MyMethod()
+        public void MyMethod1()
         {
             _tracer.StartTrace();
-            Thread.Sleep(10);
-            _bar.InnerMethod();
+            MyMethod2();
+            Thread.Sleep(105);
+            _bar.InnerMethod1();
             Thread.Sleep(15);
+            MyMethod3();
+            _tracer.StopTrace();
+        }
+        
+        public void MyMethod2()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(110);
+            _bar.InnerMethod1();
+            Thread.Sleep(50);
+            _bar.InnerMethod2();
+            Thread.Sleep(90);
+            _tracer.StopTrace();
+        }
+        
+        public void MyMethod3()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(150);
             _tracer.StopTrace();
         }
     }
@@ -63,15 +89,30 @@ namespace SPP1_Tracer
             _tracer = tracer;
         }
     
-        public void InnerMethod()
+        public void InnerMethod1()
         {
             _tracer.StartTrace();
-            Thread.Sleep(200);
+            Thread.Sleep(120);
+            _tracer.StopTrace();
+        }
+        
+        public void InnerMethod2()
+        {
+            _tracer.StartTrace();
+            InnerMethod3();
+            Thread.Sleep(40);
+            _tracer.StopTrace();
+        }
+        
+        public void InnerMethod3()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(15);
+            InnerMethod1();
+            Thread.Sleep(30);
             _tracer.StopTrace();
         }
 
     }
-    
-    
-    
+
 }

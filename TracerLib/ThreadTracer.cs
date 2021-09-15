@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 
@@ -12,6 +13,8 @@ namespace TracerLib
         private readonly Stopwatch _stopwatch = new();
         private readonly Stack<MethodTracer> _stack = new();
         private readonly List<MethodTracer> _methodTracers = new();
+
+        private long _time;
 
         public ThreadTracer(long id)
         {
@@ -47,6 +50,12 @@ namespace TracerLib
             {
                 _currentMethodTracer.StopTrace();
                 _currentMethodTracer = _stack.Count != 0 ? _stack.Pop() : null;
+
+                if (_stack.Count == 0)
+                {
+                    _time += _stopwatch.ElapsedMilliseconds;
+                    _stopwatch.Restart();
+                }
             }
         }
 
@@ -56,7 +65,7 @@ namespace TracerLib
                 .Select(threadTracer => (MethodTraceResult)threadTracer.GetTraceResult())
                 .ToList();
 
-            return new ThreadTraceResult(Id, _stopwatch.ElapsedMilliseconds, results);
+            return new ThreadTraceResult(Id, _time, results);
         }
         
     }
