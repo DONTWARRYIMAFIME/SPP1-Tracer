@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPP1-Tracer", "SPP1-Tracer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TracerLib", "TracerLib\TracerLib.csproj", "{B92D8190-B7BE-4D43-9A28-56DE5B81E507}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TracerLib.Test", "TracerLib.Test\TracerLib.Test.csproj", "{B584312B-568B-4087-B0EF-F8A1BB203521}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B92D8190-B7BE-4D43-9A28-56DE5B81E507}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B92D8190-B7BE-4D43-9A28-56DE5B81E507}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B92D8190-B7BE-4D43-9A28-56DE5B81E507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B584312B-568B-4087-B0EF-F8A1BB203521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B584312B-568B-4087-B0EF-F8A1BB203521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B584312B-568B-4087-B0EF-F8A1BB203521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B584312B-568B-4087-B0EF-F8A1BB203521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -12,7 +12,7 @@ namespace TracerLib
         
         private readonly Stopwatch _stopwatch = new();
         private readonly List<MethodTracer> _methodTracers = new();
-
+        
         public MethodTracer()
         {
             MethodBase method = new StackFrame(3, false).GetMethod();

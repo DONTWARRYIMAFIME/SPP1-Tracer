@@ -18,7 +18,7 @@ namespace SPP1_Tracer
 
             Thread thread2 = new Thread(foo.MyMethod2);
             thread2.Start();
-            
+
             thread1.Join();
             thread2.Join();
 
