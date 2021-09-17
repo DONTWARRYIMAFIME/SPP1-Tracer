@@ -70,7 +70,7 @@ namespace TracerLibTest
             
             var result = SimpleMethodTrace(150);
 
-            Assert.True(result.Threads[0].Time >= baseTime);
+            Assert.True(result.Threads[0].Time == baseTime);
             Assert.True(result.Threads[0].Methods[0].Time >= baseTime);
             Assert.True(result.Threads[0].Time >= result.Threads[0].Methods[0].Time);
         }

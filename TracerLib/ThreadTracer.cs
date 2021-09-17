@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace TracerLib
 {
@@ -12,9 +11,7 @@ namespace TracerLib
         private readonly Stopwatch _stopwatch = new();
         private readonly Stack<MethodTracer> _stack = new();
         private readonly List<MethodTracer> _methodTracers = new();
-
-        private long _time;
-
+        
         public ThreadTracer(long id)
         {
             Id = id;
@@ -49,22 +46,22 @@ namespace TracerLib
             {
                 _currentMethodTracer.StopTrace();
                 _currentMethodTracer = _stack.Count != 0 ? _stack.Pop() : null;
-
-                if (_stack.Count == 0)
-                {
-                    _time += _stopwatch.ElapsedMilliseconds;
-                    _stopwatch.Restart();
-                }
             }
         }
 
         public ITraceResult GetTraceResult()
         {
-            var results = _methodTracers
-                .Select(threadTracer => (MethodTraceResult)threadTracer.GetTraceResult())
-                .ToList();
+            long executionTime = 0;
+            
+            List<MethodTraceResult> results = new List<MethodTraceResult>();
+            foreach (var methodTracer in _methodTracers)
+            {
+                var result = (MethodTraceResult)methodTracer.GetTraceResult();
+                executionTime += result.Time;
+                results.Add(result);
+            }
 
-            return new ThreadTraceResult(Id, _time, results);
+            return new ThreadTraceResult(Id, executionTime, results);
         }
         
     }
