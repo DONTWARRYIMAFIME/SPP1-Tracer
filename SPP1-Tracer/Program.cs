@@ -18,6 +18,10 @@ namespace SPP1_Tracer
 
             Thread thread2 = new Thread(foo.MyMethod2);
             thread2.Start();
+            
+            foo.MyMethod1();
+            foo.MyMethod2();
+            foo.MyMethod3();
 
             thread1.Join();
             thread2.Join();
